@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AO3 Finder</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AO3 public metadata search</p>
+        <h1>AO3 Finder</h1>
+        <p class="lede">
+          Search AO3 result pages, collect fic metadata, and rank works by cozy/fluffy signals versus angst-heavy signals.
+        </p>
+      </div>
+      <button id="polytrixPreset" type="button">Load Polytrix fluff preset</button>
+    </section>
+
+    <section class="panel">
+      <form id="searchForm">
+        <div class="grid">
+          <label>
+            Keyword search
+            <input name="query" placeholder='polytrix OR "Polyamorous Huntrix"'>
+          </label>
+
+          <label>
+            Fandom
+            <input name="fandom" placeholder="KPop Demon Hunters">
+          </label>
+
+          <label>
+            Relationship / ship tags
+            <textarea name="relationships" rows="3" placeholder="Mira/Rumi/Zoey&#10;Polyamorous Huntrix"></textarea>
+          </label>
+
+          <label>
+            Include tags
+            <textarea name="include_tags" rows="3" placeholder="Fluff&#10;Domestic Fluff&#10;Established Relationship"></textarea>
+          </label>
+
+          <label>
+            Exclude tags
+            <textarea name="exclude_tags" rows="3" placeholder="Angst&#10;Hurt/Comfort&#10;Major Character Death"></textarea>
+          </label>
+
+          <div class="row">
+            <label>
+              Rating
+              <select name="rating">
+                <option value="">Any</option>
+                <option value="general">General Audiences</option>
+                <option value="teen">Teen And Up</option>
+                <option value="mature">Mature</option>
+                <option value="explicit">Explicit</option>
+                <option value="notrated">Not Rated</option>
+              </select>
+            </label>
+
+            <label>
+              Completion
+              <select name="complete">
+                <option value="">Any</option>
+                <option value="T">Complete only</option>
+                <option value="F">Incomplete only</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              Min words
+              <input name="min_words" inputmode="numeric" placeholder="0">
+            </label>
+            <label>
+              Max words
+              <input name="max_words" inputmode="numeric" placeholder="50000">
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              Sort
+              <select name="sort_column">
+                <option value="kudos_count">Kudos</option>
+                <option value="bookmarks_count">Bookmarks</option>
+                <option value="hits">Hits</option>
+                <option value="comments_count">Comments</option>
+                <option value="revised_at">Updated</option>
+                <option value="word_count">Words</option>
+              </select>
+            </label>
+
+            <label>
+              Direction
+              <select name="sort_direction">
+                <option value="desc">High to low / newest</option>
+                <option value="asc">Low to high / oldest</option>
+              </select>
+            </label>
+
+            <label>
+              Pages
+              <input name="pages" type="number" min="1" max="5" value="2">
+            </label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="searchButton" type="submit">Search AO3 metadata</button>
+          <a id="ao3Link" href="#" target="_blank" rel="noreferrer" hidden>Open same search on AO3</a>
+        </div>
+      </form>
+    </section>
+
+    <section id="status" class="status" hidden></section>
+    <section id="summary" class="summary" hidden></section>
+    <section id="results" class="results"></section>
+  </main>
+
+  <template id="workTemplate">
+    <article class="work-card">
+      <div class="work-header">
+        <div>
+          <h2><a class="work-title" target="_blank" rel="noreferrer"></a></h2>
+          <p class="byline"></p>
+        </div>
+        <div class="score"></div>
+      </div>
+
+      <p class="meta"></p>
+      <p class="summary-text"></p>
+
+      <div class="tag-block">
+        <h3>Relationships</h3>
+        <div class="relationships tags"></div>
+      </div>
+
+      <div class="tag-block">
+        <h3>Additional tags</h3>
+        <div class="freeforms tags"></div>
+      </div>
+
+      <details>
+        <summary>Why this score?</summary>
+        <ul class="score-notes"></ul>
+      </details>
+    </article>
+  </template>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
